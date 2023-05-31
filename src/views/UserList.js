@@ -206,14 +206,14 @@ function UserList() {
                           <td>{user.telephone}</td>
                           <td>
                           <Button
-                              class="btn btn-danger"
+                              className="btn btn-alert"
                               onClick={() => handleEditClick(user)}
                               key={user._id}
                             >
                               Edit
                             </Button>
                             <Button
-                              class="btn btn-danger"
+                              className="btn btn-danger"
                               onClick={() => handleDeleteClick(user)}
                               key={user._id}
                             >

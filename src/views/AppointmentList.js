@@ -84,11 +84,11 @@ function AppointmentList() {
 
       // Create a new object with only the necessary properties
       const appointmentData = {
-        date: updatedAppointment.date,
-        startTime: updatedAppointment.startTime,
-        endTime: updatedAppointment.endTime,
-        price: updatedAppointment.price,
-        type: updatedAppointment.type,
+        date:date,
+        startTime:startTime,
+        endTime: endTime,
+        price: price,
+        type:type,
       };
 
       // Call your edit API endpoint with the new appointmentData object
@@ -106,6 +106,8 @@ function AppointmentList() {
       }
 
       setShowEditModal(false);
+      window.location.reload();
+
     } catch (error) {
       console.error("Error updating appointment:", error);
     }
@@ -139,6 +141,8 @@ function AppointmentList() {
       }
 
       setShowDeleteModal(false);
+      window.location.reload();
+
     } catch (error) {
       console.error("Error deleting appointment:", error);
     }
@@ -178,6 +182,8 @@ function AppointmentList() {
       },
     });
     result = result.json();
+    window.location.reload();
+
   };
 
   const handleStartTimeChange = (e) => {
@@ -230,13 +236,13 @@ function AppointmentList() {
                   <span className="d-lg-block"> Search</span>
                   <input type="text" name="search"></input>
                 </Container>
-                <a
+                <Button
                   class="btn btn-alert"
                   onClick={() => setShowModal(true)}
                   style={{ marginLeft: 90 + "%" }}
                 >
                   New
-                </a>
+                </Button>
                 <Table className="table-hover table-striped">
                   <thead>
                     <tr>
@@ -255,14 +261,14 @@ function AppointmentList() {
                         <td>{appointment.startTime}</td>
                         <td>{appointment.type}</td>
                         <td>
-                          <button onClick={() => handleEditClick(appointment)}>
+                          <Button className="btn btn-alert" onClick={() => handleEditClick(appointment)}>
                             Edit
-                          </button>
-                          <button
+                          </Button>
+                          <Button className="btn btn-danger"
                             onClick={() => handleDeleteClick(appointment)}
                           >
                             Delete
-                          </button>
+                          </Button>
                         </td>
                       </tr>
                     ))}

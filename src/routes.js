@@ -6,8 +6,8 @@ import PatientList from "views/PatientList";
 import SecretaryList from "views/SecretaryList";
 import AppointmentList from "views/AppointmentList";
 import AppointmentListUser from "views/AppointmentListUser";
-import MessageInterface from "views/MessageInterface";
-import ChatList from "views/ChatList";
+
+import Conversation from "views/Conversation";
 
 
 const dashboardRoutes = [
@@ -68,21 +68,14 @@ const dashboardRoutes = [
     layout: "/admin",
  roles: ["patient"] // Example roles allowed to access the route
   },
+
   {
-    path: "/messageinterface",
-    name: "Messages",
+    path: "/conversations",
+    name: "Conversations",
     icon: "nc-icon nc-notes",
-    component: MessageInterface,
+    component: Conversation,
     layout: "/admin",
- roles: ["doctor", "patient"] // Example roles allowed to access the route
-  },
-  {
-    path: "/chatlist",
-    name: "Chat List",
-    icon: "nc-icon nc-notes",
-    component: ChatList,
-    layout: "/admin",
- roles: ["doctor"] // Example roles allowed to access the route
+ roles: ["doctor","patient"] // Example roles allowed to access the route
   },
 
 

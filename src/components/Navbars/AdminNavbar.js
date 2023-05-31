@@ -29,6 +29,7 @@ export const Header = () => {
   const [telephone, setPhoneNumber] = useState("");
 
   const handleLogin = async () => {
+    
     let result = await fetch("http://localhost:8000/auth/login", {
       method: "post",
       body: JSON.stringify({ loginInfo, password }),
@@ -40,10 +41,23 @@ export const Header = () => {
     if (result) {
       localStorage.setItem("token", JSON.stringify(result.token));
       localStorage.setItem("user", JSON.stringify(result.user));
+      
+  
     } else {
       alert("Login credentials are wrong");
     }
     history.push("/");
+    const token = localStorage.getItem("token");
+    const cleanedToken = token.substring(1, token.length - 1);
+      let convocreat = await fetch("http://localhost:8000/conversation", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: cleanedToken,
+      },
+    });
+    convocreat = await convocreat.json();
+    console.log(convocreat)
 
   };
 

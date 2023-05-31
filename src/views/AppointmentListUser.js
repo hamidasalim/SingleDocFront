@@ -32,6 +32,7 @@ function AppointmentListUser() {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
+
   const calculatePrice = (selectedDate, start, end) => {
     if (selectedDate && start && end) {
       const startParts = start.split(":");
@@ -47,6 +48,7 @@ function AppointmentListUser() {
 
       useEffect(() => {
         appointmentsList();
+
       }, []);
 
     const appointmentsList = async () => {
@@ -58,9 +60,11 @@ function AppointmentListUser() {
           "Content-Type": "application/json",
           Authorization: cleanedToken,
         },
+        
       });
       result = await result.json();
       setAppointments(result);
+
     };
 
     console.log(appointments);
@@ -75,7 +79,7 @@ function AppointmentListUser() {
     setShowDeleteModal(true);
   };
 
-  const handleSaveChanges = async (updatedAppointment) => {
+  const handleSaveChanges = async () => {
     const token = localStorage.getItem("token");
     const cleanedToken = token.substring(1, token.length - 1);
 
@@ -84,11 +88,11 @@ function AppointmentListUser() {
 
       // Create a new object with only the necessary properties
       const appointmentData = {
-        date: updatedAppointment.date,
-        startTime: updatedAppointment.startTime,
-        endTime: updatedAppointment.endTime,
-        price: updatedAppointment.price,
-        type: updatedAppointment.type,
+        date: date,
+        startTime: startTime,
+        endTime: endTime,
+        price: price,
+        type: type,
       };
 
       // Call your edit API endpoint with the new appointmentData object
@@ -106,6 +110,8 @@ function AppointmentListUser() {
       }
 
       setShowEditModal(false);
+      window.location.reload();
+
     } catch (error) {
       console.error("Error updating appointment:", error);
     }
@@ -139,6 +145,8 @@ function AppointmentListUser() {
       }
 
       setShowDeleteModal(false);
+      window.location.reload();
+
     } catch (error) {
       console.error("Error deleting appointment:", error);
     }
@@ -167,6 +175,8 @@ function AppointmentListUser() {
       },
     });
     result = result.json();
+    window.location.reload();
+
   };
 
   const handleStartTimeChange = (e) => {
@@ -242,10 +252,10 @@ function AppointmentListUser() {
                         <td>{appointment.startTime}</td>
                         <td>{appointment.type}</td>
                         <td>
-                          <Button class="btn btn-alert" onClick={() => handleEditClick(appointment)}>
+                          <Button className="btn btn-alert" onClick={() => handleEditClick(appointment)}>
                             Edit
                           </Button>
-                          <Button class="btn btn-danger"
+                          <Button className="btn btn-danger"
                             onClick={() => handleDeleteClick(appointment)}
                           >
                             Delete
@@ -418,16 +428,7 @@ function AppointmentListUser() {
                   required
                 />
               </div>
-              <div>
-                <label htmlFor="price">Price:</label>
-                <input
-                  type="text"
-                  id="price"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
-                  required
-                />
-              </div>
+         
 
               <div>
                 <label htmlFor="type">Type:</label>

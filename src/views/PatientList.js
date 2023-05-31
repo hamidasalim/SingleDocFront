@@ -42,25 +42,17 @@ function PatientList() {
     }
   };
 
-
-
   const handlePatientSelect = (patient) => {
     setSelectedPatient(patient);
   };
 
   const handleRedirect = () => {
-    history.push("/admin/list/patient");
+    history.push("/admin/list/user");
   };
 
   useEffect(() => {
     fetchPatientList();
   }, []);
-
-
-
-
-
-
 
   const handleDeleteClick = (patient) => {
     setSelectedPatient(patient);
@@ -84,7 +76,9 @@ function PatientList() {
         },
       });
       if (result.ok) {
-        setPatients((prevPatients) => prevPatients.filter((patient) => patient._id !== selectedPatient._id));
+        setPatients((prevPatients) =>
+          prevPatients.filter((patient) => patient._id !== selectedPatient._id)
+        );
       } else {
         console.log("Error deleting patient");
       }
@@ -94,18 +88,6 @@ function PatientList() {
       setShowDeleteModal(false);
     }
   };
-
-
-
-
-
-
-
-
-
-
-
-
 
   return (
     <>
@@ -117,7 +99,7 @@ function PatientList() {
                 <Card.Title as="h4">Patient List</Card.Title>
               </Card.Header>
               <Card.Body className="table-full-width table-responsive px-0">
-              <Container className="searchbar">
+                <Container className="searchbar">
                   <i className="nc-icon nc-zoom-split"></i>
                   <span className="d-lg-block"> Search</span>
                   <input
@@ -137,7 +119,7 @@ function PatientList() {
                 <Table className="table-hover table-striped">
                   <thead>
                     <tr>
-                      <th className="border-0">Patientname</th>  
+                      <th className="border-0">Patientname</th>
 
                       <th className="border-0">Phone Number</th>
                       <th className="border-0"></th>
@@ -149,15 +131,19 @@ function PatientList() {
                         const fullName = `${patient.profil.firstName} ${patient.profil.lastName} ${patient.profil.patientname} ${patient.profil.email} `;
                         return (
                           searchQuery === "" ||
-                          fullName.toLowerCase().includes(searchQuery.toLowerCase())
+                          fullName
+                            .toLowerCase()
+                            .includes(searchQuery.toLowerCase())
                         );
                       })
                       .map((patient) => (
                         <tr key={patient._id}>
-                          <td>{patient.profil.lastName } {patient.profil.firstName }</td>     
-                          <td>{patient.profil.phoneNumber}</td>
                           <td>
-                          <Button
+                            {patient.profil.lastName} {patient.profil.firstName}
+                          </td>
+                          <td>{patient.profil.telephone}</td>
+                          <td>
+                            <Button
                               className="btn btn-alert"
                               onClick={() => handleEditClick(patient)}
                               key={patient._id}
